@@ -2,22 +2,22 @@ import Card from "../UI/Card";
 import classes from "./UsersList.module.css";
 
 const UsersList = (props) => {
-  const ageYears = (age) => {
-    if (parseInt(age) === 1) return <span>({age} year old)</span>;
-    else return <span>({age} years old)</span>;
+  const content = (user) => {
+    let output = user.username;
+
+    if (parseInt(user.age) === 1) output += ` (${user.age} year old)`;
+    else output += ` (${user.age} years old)`;
+
+    return output;
   };
 
   return (
     <Card className={classes.users}>
-      {props.users.length === 0 && (
-        <p style={{ textAlign: "center", padding: "10px" }}>No users.</p>
-      )}
+      {props.users.length === 0 && <p>No users.</p>}
       {props.users.length > 0 && (
         <ul>
           {props.users.map((user, index) => (
-            <li key={index}>
-              {user.username} {ageYears(user.age)}
-            </li>
+            <li key={index}>{content(user)}</li>
           ))}
         </ul>
       )}
